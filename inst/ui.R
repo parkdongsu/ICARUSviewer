@@ -1,3 +1,27 @@
+library(ICARUSviewer)
+
+check.packages("Rcpp")
+check.packages("dplyr")
+check.packages("reshape2")
+check.packages("ggplot2")
+check.packages("plotly")
+check.packages("shiny")
+check.packages("SqlRender")
+check.packages("DatabaseConnector")
+check.packages("FeatureExtraction")
+check.packages("PatientLevelPrediction")
+check.packages("shinydashboard")
+check.packages("shinyWidgets")
+check.packages("shinydashboardPlus")
+check.packages("tidyverse")
+check.packages("epitools")
+check.packages("mgcv")
+check.packages("lme4")
+check.packages("lmerTest")
+check.packages("lcmm")
+check.packages("ggfortify")
+check.packages("survival")
+check.packages("ICARUSviewer")
 ui <- shinydashboardPlus::dashboardPagePlus(
   header = dashboardHeaderPlus(
     title = "ICARUS WINGS", fixed = TRUE, enable_rightsidebar = TRUE, rightSidebarIcon = "edit"),
@@ -48,7 +72,6 @@ ui <- shinydashboardPlus::dashboardPagePlus(
                   '
        setTimeout(function(){
          var temp = window.location.hash;
-         //스크립트 변수를 R변수로 change
          Shiny.onInputChange("myInput",temp);
        }, 1000);
        $(document).bind("keydown",function(e){
