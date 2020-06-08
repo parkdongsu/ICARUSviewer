@@ -275,8 +275,8 @@ server <- function(input, output, session) {
     connectionDetails <<- DatabaseConnector::createConnectionDetails(dbms = userAuth$sql_type[[cdmIndex]],
                                                                      server = userAuth$ip_address[[cdmIndex]],
                                                                      user = userAuth$username[[cdmIndex]],
-                                                                     password = userAuth$password[[cdmIndex]],
-                                                                     schema = userAuth$cdb_schema[[cdmIndex]])
+                                                                     password = userAuth$password[[cdmIndex]]
+                                                                     )
     CDMschema <<- userAuth$cdb_schema[[cdmIndex]]
     CohortSchema <<- userAuth$cdb_result[[cdmIndex]]
     cohortTable <<- userAuth$cohort_table[[cdmIndex]]
