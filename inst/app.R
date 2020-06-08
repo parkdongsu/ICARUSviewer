@@ -257,7 +257,7 @@ server <- function(input, output, session) {
       else{
         userAuth <<- conData
       }
-      updateSelectInput(session, "cdmSchema",
+      updateSelectInput(session, "cdm",
                         label = paste("Select CDM", length(userAuth$cdb_schema)),
                         choices = userAuth$cdb_schema,
                         selected = tail(userAuth$cdb_schema, 1)
@@ -275,11 +275,12 @@ server <- function(input, output, session) {
     connectionDetails <<- DatabaseConnector::createConnectionDetails(dbms = userAuth$sql_type[[cdmIndex]],
                                                                      server = userAuth$ip_address[[cdmIndex]],
                                                                      user = userAuth$username[[cdmIndex]],
-                                                                     password = userAuth$password[[cdmIndex]])
+                                                                     password = userAuth$password[[cdmIndex]],
+                                                                     schema = userAuth$cdb_schema[[cdmIndex]])
     CDMschema <<- userAuth$cdb_schema[[cdmIndex]]
     CohortSchema <<- userAuth$cdb_result[[cdmIndex]]
     cohortTable <<- userAuth$cohort_table[[cdmIndex]]
-    connection <<-DatabaseConnector::connect(connectionDetails)
+    connection <<- DatabaseConnector::connect(connectionDetails)
     
     "Database connection is done!"
   })
