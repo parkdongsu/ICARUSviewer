@@ -271,7 +271,7 @@ server <- function(input, output, session) {
 
   DBconnect <- eventReactive(input$dbConnect, {
     
-    cdmIndex <- grep(input$cdm,userAuth$cdm)
+    cdmIndex <- grep(input$cdm,userAuth$cdb_schema)
     connectionDetails <<- DatabaseConnector::createConnectionDetails(dbms = userAuth$sql_type[[cdmIndex]],
                                                                      server = userAuth$ip_address[[cdmIndex]],
                                                                      user = userAuth$username[[cdmIndex]],
