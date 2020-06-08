@@ -277,6 +277,8 @@ server <- function(input, output, session) {
                                                                      user = userAuth$username[[cdmIndex]],
                                                                      password = userAuth$password[[cdmIndex]]
                                                                      )
+    print(cdmIndex)
+    print(connectionDetails)
     CDMschema <<- userAuth$cdb_schema[[cdmIndex]]
     CohortSchema <<- userAuth$cdb_result[[cdmIndex]]
     cohortTable <<- userAuth$cohort_table[[cdmIndex]]
