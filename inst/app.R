@@ -39,8 +39,8 @@ ui <- dashboardPagePlus(
       # textInput("ip","IP",""),
       # uiOutput("sqltype"),
       # textInput("CDMschema","CDM Database Schema",""),
-      textInput("Resultschema","CDM Results schema",""),
-      textInput("cohortTable","cohort table",""),
+      # textInput("Resultschema","CDM Results schema",""),
+      # textInput("cohortTable","cohort table",""),
       # textInput("user","USER",""),
       # passwordInput("pw","PASSWORD",""),
       actionButton("dbConnect","Connect to database"),
@@ -257,10 +257,10 @@ server <- function(input, output, session) {
       else{
         userAuth <<- conData
       }
-      updateSelectInput(session, "cdm",
-                        label = paste("Select CDM", length(userAuth$cdm)),
-                        choices = userAuth$cdm,
-                        selected = tail(userAuth$cdm, 1)
+      updateSelectInput(session, "cdmSchema",
+                        label = paste("Select CDM", length(userAuth$cdb_schema)),
+                        choices = userAuth$cdb_schema,
+                        selected = tail(userAuth$cdb_schema, 1)
       )
     }
   })
@@ -268,26 +268,17 @@ server <- function(input, output, session) {
   ###########################################
   
   #####1.right side menu : DB connection#####
-  output$sqltype<-renderUI({
-    selectInput("sqltype", "Select DBMS",
-                choices = c("sql server" = "sql server",
-                            "PostgreSQL" = "postresql",
-                            "Amazon Redshift" = "redshift",
-                            "Microsoft Parallel Data Warehouse" = "pdw",
-                            "IBM Netezza" = "netezza",
-                            "Google BigQuery" = "bigquery") )
-  })
+
   DBconnect <- eventReactive(input$dbConnect, {
     
     cdmIndex <- grep(input$cdm,userAuth$cdm)
-    
-    connectionDetails <<- DatabaseConnector::createConnectionDetails(dbms = userAuth$sql_server[[cdmIndex]],
-                                                                     server = userAuth$server_ip[[cdmIndex]],
+    connectionDetails <<- DatabaseConnector::createConnectionDetails(dbms = userAuth$sql_type[[cdmIndex]],
+                                                                     server = userAuth$ip_address[[cdmIndex]],
                                                                      user = userAuth$username[[cdmIndex]],
                                                                      password = userAuth$password[[cdmIndex]])
-    CDMschema <<- userAuth$cdm[[cdmIndex]]
-    CohortSchema <<- input$Resultschema
-    cohortTable <<- input$cohortTable
+    CDMschema <<- userAuth$cdb_schema[[cdmIndex]]
+    CohortSchema <<- userAuth$cdb_result[[cdmIndex]]
+    cohortTable <<- userAuth$cohort_table[[cdmIndex]]
     connection <<-DatabaseConnector::connect(connectionDetails)
     
     "Database connection is done!"
