@@ -24,6 +24,7 @@ library(lmerTest)
 library(lcmm)
 library(ggfortify)
 library(survival)
+library(DT)
 
 ui <- dashboardPagePlus(
   header = dashboardHeaderPlus(
